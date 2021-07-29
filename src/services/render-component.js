@@ -1,6 +1,6 @@
-const renderComp = (container, template, place) => {
+const renderComponent = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
-export {renderComp};
+export {renderComponent};
 
