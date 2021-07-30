@@ -14,10 +14,11 @@ import {createMainNavTemplate} from './views/main-nav.js';
 const CARD_COUNT = 5;
 const CARD_TOP_COUNT = 2;
 
-const headerPlace = document.querySelector('.header');
-const mainPlace = document.querySelector('.main');
-const footerStatisticsPlace = document.querySelector('.footer__statistics');
 const bodyPlace = document.body;
+const headerPlace = bodyPlace.querySelector('.header');
+const mainPlace = bodyPlace.querySelector('.main');
+const footerStatisticsPlace = bodyPlace.querySelector('.footer__statistics');
+
 
 const renderCards = (amount, place) => {
   for (let i = 0; i < amount; i++) {
