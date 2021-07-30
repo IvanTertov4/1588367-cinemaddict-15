@@ -17,30 +17,30 @@ const CARD_TOP_COUNT = 2;
 const headerPlace = document.querySelector('.header');
 const mainPlace = document.querySelector('.main');
 const footerStatisticsPlace = document.querySelector('.footer__statistics');
+const bodyPlace = document.body;
 
 const renderCards = (amount, place) => {
   for (let i = 0; i < amount; i++) {
-    renderComponent(place, createFilmCardTemplate(),'beforeend');
+    renderComponent(place, createFilmCardTemplate(), 'beforeend');
   }
 };
 
-renderComponent(headerPlace, createUserProfileTemplate(),'beforeend');
-renderComponent(mainPlace, createMainNavTemplate(),'beforeend');
-renderComponent(footerStatisticsPlace, createFooterStatTemplate(),'beforeend');
-renderComponent(mainPlace, createSortingNavTemplate(),'beforeend');
-renderComponent(mainPlace, createFilmsSectionTemplate(),'beforeend');
-const filmSection = document.querySelector('.films');
-renderComponent(filmSection, createFilmsListTemplate(),'beforeend');
-const filmList = document.querySelector('.films-list');
+renderComponent(headerPlace, createUserProfileTemplate(), 'beforeend');
+renderComponent(mainPlace, createMainNavTemplate(), 'beforeend');
+renderComponent(footerStatisticsPlace, createFooterStatTemplate(), 'beforeend');
+renderComponent(mainPlace, createSortingNavTemplate(), 'beforeend');
+renderComponent(mainPlace, createFilmsSectionTemplate(), 'beforeend');
+const filmSection = bodyPlace.querySelector('.films');
+renderComponent(filmSection, createFilmsListTemplate(), 'beforeend');
+const filmList = filmSection.querySelector('.films-list');
 const filmContForCards = filmList.querySelector('.films-list__container');
 renderCards(CARD_COUNT, filmContForCards);
-renderComponent(filmList, createShowMoreTemplate(),'beforeend');
-renderComponent(filmSection, createFilmListRatedTemplate(),'beforeend');
+renderComponent(filmList, createShowMoreTemplate(), 'beforeend');
+renderComponent(filmSection, createFilmListRatedTemplate(), 'beforeend');
 const filmListRated = filmSection.querySelector('.films-list__container--rated');
 renderCards(CARD_TOP_COUNT, filmListRated);
-renderComponent(filmSection, createFilmListСommentedTemplate(),'beforeend');
+renderComponent(filmSection, createFilmListСommentedTemplate(), 'beforeend');
 const filmListСommented = filmSection.querySelector('.films-list__container--commented');
 renderCards(CARD_TOP_COUNT, filmListСommented);
-const popupPlace = document.body;
-renderComponent(popupPlace, createInfoPopupTemplate(),'beforeend');
+renderComponent(bodyPlace, createInfoPopupTemplate(), 'beforeend');
 
