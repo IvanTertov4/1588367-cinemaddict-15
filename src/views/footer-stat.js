@@ -1,3 +1,7 @@
-export const createFooterStatTemplate = () => (`
- <p>130 291 movies inside</p>
-`);
+export const createFooterStatTemplate = (createRandomData) => {
+  const {moviesInside} = createRandomData;
+
+  return `
+   <p>${moviesInside} movies inside</p>
+  `;
+};
