@@ -1,13 +1,12 @@
-const getRandomInteger = (min, max) => {
-  const rand = min - 0.5 + Math.random() * (max - min + 1);
-  return Math.round(rand);
-};
+import dayjs from 'dayjs';
 
-const generateName = () => {
+import { getRandomInteger } from '../services/random-integer';
+
+const generateTitle = () => {
   const names = [
-    'Lorem ipsum dolor',
-    'Fusce tristique',
-    'Aliquam erat',
+    'The Dance of Life',
+    'Sagebrush Trail',
+    'The Man with the Golden Arm',
   ];
 
   const randomIndex = getRandomInteger(0, names.length - 1);
@@ -48,9 +47,20 @@ const generatePerson = () => {
     'Mary Beth',
     'Mary Hughes',
     'Dan Duryea',
-    'Anne Mann',
+    'Anne Brown',
     'Heinz Stroheim',
     'Dan Vong',
+    'Peter Goodwin',
+    'Peter Shaw',
+    'Richard Norris',
+    'Sabrina Austin',
+    'Brittney Holmes',
+    'Peter Wilkinson',
+    'Barbra Glenn',
+    'Karen Butler',
+    'Ann Young',
+    'Dominic Ellis',
+    'Richard Ryan',
   ];
 
   const randomIndex = getRandomInteger(0, persons.length - 1);
@@ -59,16 +69,10 @@ const generatePerson = () => {
 };
 
 const generateReleaseDate = () => {
-  const releaseDates = [
-    '1946',
-    '1948',
-    '1945',
-    '1956',
-  ];
-
-  const randomIndex = getRandomInteger(0, releaseDates.length - 1);
-
-  return releaseDates[randomIndex];
+  const maxDateGap = 18;
+  const dateGap = getRandomInteger(-maxDateGap, -maxDateGap/2);
+  const newDate = dayjs().add(dateGap, 'year').toDate();
+  return newDate;
 };
 
 const generateRuntime = () => {
@@ -84,12 +88,12 @@ const generateRuntime = () => {
   return runtimes[randomIndex];
 };
 
-const generateCounrty = () => {
+const generateReleaseCounrty = () => {
   const countries = [
     'USA',
-    'Egnland',
+    'England',
     'Russia',
-    'Germane',
+    'Germany',
   ];
 
   const randomIndex = getRandomInteger(0, countries.length - 1);
@@ -110,63 +114,44 @@ const generateGenre = () => {
   return genres[randomIndex];
 };
 
+const generateUserDetails = () => ({
+  watchlist: Boolean(getRandomInteger(0,1)),
+  alreadyWatched: Boolean(getRandomInteger(0,1)),
+  favourite: Boolean(getRandomInteger(0,1)),
+});
+
 const createFilmData = () => ({
-  name: generateName(),
-  poster: generatePoster(),
-  description: generateDescription(),
-  commentsCount: getRandomInteger(0, 5),
-  mark: getRandomInteger(1, 9)  + 0.1,
-  ageRate: getRandomInteger(6, 18),
-  director: generatePerson(),
-  writers: generatePerson(),
-  actors: generatePerson(),
-  releaseDate: generateReleaseDate(),
-  runtime: generateRuntime(),
-  country: generateCounrty(),
-  genres: generateGenre(),
-  iaAtWatchlist: Boolean(getRandomInteger(0,1)),
-  isAlreadyWatched: Boolean(getRandomInteger(0,1)),
-  iaAtFavorites: Boolean(getRandomInteger(0,1)),
+  id: getRandomInteger(0,15),
+  comments: [ ],
+  filmInfo: {
+    title: generateTitle(),
+    alternativeTitle: generateTitle(),
+    totalRating: getRandomInteger(0, 10),
+    poster: generatePoster(),
+    ageRating: getRandomInteger(6, 18),
+    director: generatePerson(),
+    writers: [
+      generatePerson(), generatePerson(), generatePerson(),
+    ],
+    actors: [
+      generatePerson(), generatePerson(),
+    ],
+    release: {
+      date: generateReleaseDate(),
+      releaseCountry: generateReleaseCounrty(),
+    },
+    runtime: generateRuntime(),
+    genre: [
+      generateGenre(),
+    ],
+    description: generateDescription(),
+  },
+  userDetails: {
+    watchlist: generateUserDetails().watchlist,
+    alreadyWatched: generateUserDetails().alreadyWatched,
+    watchingDate: generateReleaseDate(),
+    favorite: generateUserDetails().favourite,
+  },
 });
 
-const generateEmotion = () => {
-  const emotions = [
-    'happy',
-    'boring',
-    'foo',
-    'angry',
-  ];
-
-  const randomIndex = getRandomInteger(0, emotions.length - 1);
-
-  return emotions[randomIndex];
-};
-
-const generateText = () => {
-  const text = [
-    'Interesting setting and a good cas',
-    'Booooooooooring',
-    'Very very old. Meh',
-    'Almost two hours? Seriously?',
-  ];
-
-  const randomIndex = getRandomInteger(0, text.length - 1);
-
-  return text[randomIndex];
-};
-
-const createCommentData = () => ({
-  emotion: generateEmotion(),
-  text: generateText(),
-  writer: generatePerson(),
-  date: generateReleaseDate(),
-});
-
-const createRandomData = () => ({
-  watchlist: getRandomInteger(0, 10),
-  history: getRandomInteger(0, 10),
-  favorites: getRandomInteger(0, 10),
-  moviesInside: getRandomInteger(0, 1000),
-});
-
-export {createFilmData, createCommentData, createRandomData};
+export {createFilmData};

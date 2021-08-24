@@ -1,6 +1,9 @@
-export const createInfoPopupTemplate = (filmData) => {
-  const {name, poster, description, mark, ageRate, director, writers, actors, releaseDate, runtime, country, genres} = filmData;
+import dayjs from 'dayjs';
 
+export const createInfoPopupTemplate = (filmCard) => {
+  const {filmInfo} = filmCard;
+  const {title, poster, totalRating, release, genre, runtime, description, ageRating, director, writers, actors} = filmInfo;
+  const {date, country} = release;
   return `<section class="film-details">
   <form class="film-details__inner" action="" method="get">
     <div class="film-details__top-container">
@@ -11,18 +14,18 @@ export const createInfoPopupTemplate = (filmData) => {
         <div class="film-details__poster">
           <img class="film-details__poster-img" src="${poster}" alt="">
 
-          <p class="film-details__age">${ageRate}+</p>
+          <p class="film-details__age">${ageRating}+</p>
         </div>
 
         <div class="film-details__info">
           <div class="film-details__info-head">
             <div class="film-details__title-wrap">
-              <h3 class="film-details__title">${name}</h3>
+              <h3 class="film-details__title">${title}</h3>
               <p class="film-details__title-original">Original: The Great Flamarion</p>
             </div>
 
             <div class="film-details__rating">
-              <p class="film-details__total-rating">${mark}</p>
+              <p class="film-details__total-rating">${totalRating}</p>
             </div>
           </div>
 
@@ -41,7 +44,7 @@ export const createInfoPopupTemplate = (filmData) => {
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Release Date</td>
-              <td class="film-details__cell">${releaseDate}</td>
+              <td class="film-details__cell">${dayjs(date).format('DD MMMM YYYY')}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Runtime</td>
@@ -54,9 +57,7 @@ export const createInfoPopupTemplate = (filmData) => {
             <tr class="film-details__row">
               <td class="film-details__term">Genres</td>
               <td class="film-details__cell">
-                <span class="film-details__genre">${genres}</span>
-                <span class="film-details__genre">Film-Noir</span>
-                <span class="film-details__genre">Mystery</span></td>
+                <span class="film-details__genre">${genre}</span>
             </tr>
           </table>
 
