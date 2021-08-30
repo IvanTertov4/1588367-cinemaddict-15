@@ -1,6 +1,29 @@
 import dayjs from 'dayjs';
 
-import { getRandomInteger } from '../services/random-integer';
+import { getRandomInteger } from '../services/random-integer.js';
+
+const generateFilmId = (count) => {
+  let filmId = 0;
+  for (let i = 0; i < count; i++) {
+    filmId++;
+    return filmId;
+  }
+};
+
+const generateArrayOfCommentsId = (from, to) => {
+  const newArrayOfCommentsId = [];
+  const arrayOfCommentsIdLenght = getRandomInteger(from, to);
+  for (let i = 0; i < arrayOfCommentsIdLenght; i++) {
+    const newCommentId = getRandomInteger(0, 75);
+    for ( const commentsId of newArrayOfCommentsId) {
+      if (newCommentId === commentsId) {
+        newArrayOfCommentsId.splice(newArrayOfCommentsId.length, 1);
+      }
+    }
+    newArrayOfCommentsId.push(newCommentId);
+  }
+  return newArrayOfCommentsId;
+};
 
 const generateTitle = () => {
   const names = [
@@ -38,7 +61,7 @@ const generateDescription = () => {
   return descriptions[randomIndex];
 };
 
-const generatePerson = () => {
+const generatePersons = () => {
   const persons = [
     'Anthony Mann',
     'Anne Wigton',
@@ -63,9 +86,12 @@ const generatePerson = () => {
     'Richard Ryan',
   ];
 
-  const randomIndex = getRandomInteger(0, persons.length - 1);
-
-  return persons[randomIndex];
+  const personsCollection = [];
+  for (let i = 0; i < getRandomInteger(1, 5); i++) {
+    const randomIndex = getRandomInteger(0, persons.length - 1);
+    personsCollection.push(persons[randomIndex]);
+  }
+  return personsCollection;
 };
 
 const generateReleaseDate = () => {
@@ -88,7 +114,7 @@ const generateRuntime = () => {
   return runtimes[randomIndex];
 };
 
-const generateReleaseCounrty = () => {
+const generateReleaseCountry = () => {
   const countries = [
     'USA',
     'England',
@@ -114,31 +140,21 @@ const generateGenre = () => {
   return genres[randomIndex];
 };
 
-const generateUserDetails = () => ({
-  watchlist: Boolean(getRandomInteger(0,1)),
-  alreadyWatched: Boolean(getRandomInteger(0,1)),
-  favourite: Boolean(getRandomInteger(0,1)),
-});
-
 const createFilmData = () => ({
-  id: getRandomInteger(0,15),
-  comments: [ ],
+  id: generateFilmId(25),
+  comments: generateArrayOfCommentsId(1, 7),
   filmInfo: {
     title: generateTitle(),
     alternativeTitle: generateTitle(),
     totalRating: getRandomInteger(0, 10),
     poster: generatePoster(),
     ageRating: getRandomInteger(6, 18),
-    director: generatePerson(),
-    writers: [
-      generatePerson(), generatePerson(), generatePerson(),
-    ],
-    actors: [
-      generatePerson(), generatePerson(),
-    ],
+    director: generatePersons(),
+    writers: generatePersons(),
+    actors: generatePersons(),
     release: {
       date: generateReleaseDate(),
-      releaseCountry: generateReleaseCounrty(),
+      releaseCountry: generateReleaseCountry(),
     },
     runtime: generateRuntime(),
     genre: [
@@ -147,10 +163,10 @@ const createFilmData = () => ({
     description: generateDescription(),
   },
   userDetails: {
-    watchlist: generateUserDetails().watchlist,
-    alreadyWatched: generateUserDetails().alreadyWatched,
+    watchlist: Boolean(getRandomInteger(0,1)),
+    alreadyWatched: Boolean(getRandomInteger(0,1)),
     watchingDate: generateReleaseDate(),
-    favorite: generateUserDetails().favourite,
+    favorite: Boolean(getRandomInteger(0,1)),
   },
 });
 

@@ -3,7 +3,10 @@ import dayjs from 'dayjs';
 export const createInfoPopupTemplate = (filmCard) => {
   const {filmInfo} = filmCard;
   const {title, poster, totalRating, release, genre, runtime, description, ageRating, director, writers, actors} = filmInfo;
-  const {date, country} = release;
+  const {date, releaseCountry} = release;
+  const directorsCollection = director.join(', ');
+  const writersCollection = writers.join(', ');
+  const actorsCollection = actors.join(', ');
   return `<section class="film-details">
   <form class="film-details__inner" action="" method="get">
     <div class="film-details__top-container">
@@ -32,15 +35,15 @@ export const createInfoPopupTemplate = (filmCard) => {
           <table class="film-details__table">
             <tr class="film-details__row">
               <td class="film-details__term">Director</td>
-              <td class="film-details__cell">${director}</td>
+              <td class="film-details__cell">${directorsCollection}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Writers</td>
-              <td class="film-details__cell">${writers}</td>
+              <td class="film-details__cell">${writersCollection}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Actors</td>
-              <td class="film-details__cell">${actors}</td>
+              <td class="film-details__cell">${actorsCollection}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Release Date</td>
@@ -52,7 +55,7 @@ export const createInfoPopupTemplate = (filmCard) => {
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Country</td>
-              <td class="film-details__cell">${country}</td>
+              <td class="film-details__cell">${releaseCountry}</td>
             </tr>
             <tr class="film-details__row">
               <td class="film-details__term">Genres</td>

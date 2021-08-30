@@ -2,6 +2,22 @@ import dayjs from 'dayjs';
 
 import { getRandomInteger } from '../services/random-integer';
 
+
+const emotions = ['smile', 'sleeping', 'puke', 'angry'];
+let commentId = 0;
+const generateCommentId = (count) => {
+  for (let i = 0; i < count; i++) {
+    commentId++;
+    return commentId;
+  }
+};
+
+const generateEmotion = () => {
+  const randomIndex = getRandomInteger(0, emotions.length - 1);
+
+  return emotions[randomIndex];
+};
+
 const generateСommentator = () => {
   const persons = [
     'Barbra Glenn',
@@ -25,14 +41,6 @@ const generateCommentedDate = () => {
   return newDate;
 };
 
-const generateEmotion = () => {
-  const emotions = ['smile', 'sleeping', 'puke', 'angry'];
-
-  const randomIndex = getRandomInteger(0, emotions.length - 1);
-
-  return emotions[randomIndex];
-};
-
 const generateCommentText = () => {
   const text = [
     'Interesting setting and a good cast',
@@ -47,7 +55,7 @@ const generateCommentText = () => {
 };
 
 const createCommentData = () => ({
-  id: getRandomInteger(0,15),
+  id: generateCommentId(75),
   author: generateСommentator(),
   commentText: generateCommentText(),
   date: generateCommentedDate(),

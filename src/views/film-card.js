@@ -5,6 +5,7 @@ export const createFilmCardTemplate = (filmCard) => {
   const {title, poster, totalRating, release, genre, runtime, description} = filmInfo;
   const {date} = release;
   const commentsNumber = comments.length;
+
   return `<article class="film-card">
   <h3 class="film-card__title">${title}</h3>
   <p class="film-card__rating">${totalRating}</p>
