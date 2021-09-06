@@ -2,13 +2,7 @@ import dayjs from 'dayjs';
 
 import { getRandomInteger } from '../services/random-integer.js';
 
-const generateFilmId = (count) => {
-  let filmId = 0;
-  for (let i = 0; i < count; i++) {
-    filmId++;
-    return filmId;
-  }
-};
+import {generateId} from '../services/id-generation';
 
 const generateArrayOfCommentsId = (from, to) => {
   const newArrayOfCommentsId = [];
@@ -141,7 +135,7 @@ const generateGenre = () => {
 };
 
 const createFilmData = () => ({
-  id: generateFilmId(25),
+  id: generateId(25),
   comments: generateArrayOfCommentsId(1, 7),
   filmInfo: {
     title: generateTitle(),
@@ -163,10 +157,10 @@ const createFilmData = () => ({
     description: generateDescription(),
   },
   userDetails: {
-    watchlist: Boolean(getRandomInteger(0,1)),
-    alreadyWatched: Boolean(getRandomInteger(0,1)),
+    watchlist: Boolean(getRandomInteger(0, 1)),
+    alreadyWatched: Boolean(getRandomInteger(0, 1)),
     watchingDate: generateReleaseDate(),
-    favorite: Boolean(getRandomInteger(0,1)),
+    favorite: Boolean(getRandomInteger(0, 1)),
   },
 });
 

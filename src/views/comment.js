@@ -1,8 +1,27 @@
 import dayjs from 'dayjs';
 
-export const createCommentTemplate = (comment) => {
-  const {author, commentText, date, emotion} = comment;
+import {createCommentData} from '../mocks/comment-data-generation.js';
 
+const COMMENT_COUNT = 75;
+
+
+const commentData = new Array(COMMENT_COUNT).fill().map(createCommentData);
+
+const findComments= (film) => {
+  const neededComments = [];
+  for (const commentId of film.comments) {
+    for (let i = 0; i < commentData.length - 1; i++) {
+      if (commentId === commentData[i].id) {
+        neededComments.push(commentData[i]);
+      }
+    }
+  }
+  return neededComments;
+};
+
+export const createCommentTemplate = (film, number) => {
+  const neededComments = findComments(film);
+  const {author, commentText, date, emotion} = neededComments[number];
   return `<li class="film-details__comment">
   <span class="film-details__comment-emoji">
     <img src="./images/emoji/${emotion}.png" width="55" height="55" alt="emoji-${emotion}">
@@ -16,4 +35,5 @@ export const createCommentTemplate = (comment) => {
     </p>
   </div>
   </li>`;
+
 };

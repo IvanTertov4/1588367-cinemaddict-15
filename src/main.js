@@ -1,6 +1,5 @@
 import {createFilmData} from './mocks/film-data-generation.js';
 import {createFilterData} from './mocks/filters-generation.js';
-import {createCommentData} from './mocks/comment-data-generation.js';
 import {createFilmCardTemplate} from './views/film-card.js';
 import {createFilmsListTemplate} from './views/films-list.js';
 import {createFilmsShowMoreBtnTemplate} from './views/films-show-more-btn.js';
@@ -16,11 +15,7 @@ import {createCommentsSectionTemplate} from './views/comments-section.js';
 import {createCommentTemplate} from './views/comment.js';
 import {createNewCommentTemplate} from './views/new-comment.js';
 
-
-const CARD_COUNT = 5;
-const CARD_TOP_COUNT = 2;
-const COMMENT_COUNT = 75;
-const GENERATION_CARD_COUNT = 25;
+import {CARD_COUNT, CARD_TOP_COUNT, GENERATION_CARD_COUNT} from './services/constants.js';
 
 const bodyPlace = document.body;
 const headerPlace = bodyPlace.querySelector('.header');
@@ -28,20 +23,8 @@ const mainPlace = bodyPlace.querySelector('.main');
 const footerStatisticsPlace = bodyPlace.querySelector('.footer__statistics');
 
 const filmCardData = new Array(GENERATION_CARD_COUNT).fill().map(createFilmData);
-const commentData = new Array(COMMENT_COUNT).fill().map(createCommentData);
-const filters = createFilterData(filmCardData);
 
-const findComment = () => {
-  const neededComments = [];
-  for (const commentId of filmCardData[0].comments) {
-    for (let i = 0; i < commentData.length - 1; i++) {
-      if (commentId === commentData[i].id) {
-        neededComments.push(commentData[i]);
-      }
-    }
-  }
-  return neededComments;
-};
+const filters = createFilterData(filmCardData);
 
 const renderComponent = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
@@ -68,9 +51,8 @@ const renderCards = (container, amount, state) => {
 };
 
 const renderComments = (container) => {
-  const neededComments = findComment();
-  for (let i = 0; i < neededComments.length; i++) {
-    renderComponent(container, createCommentTemplate(neededComments[i]));
+  for (let i = 0; i < filmCardData[0].comments.length - 1; i++) {
+    renderComponent(container, createCommentTemplate(filmCardData[0], i));
   }
 };
 
