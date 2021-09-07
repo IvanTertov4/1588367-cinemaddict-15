@@ -6,21 +6,21 @@ const filmsToFilterMap = {
 
 const createFilterData = (films) => ({
   all: {
-    href: '#all',
+    href: 'all',
     name: 'All movies',
   },
   watchlist: {
-    href: '#watchlist',
+    href: 'watchlist',
     name:'Watchlist',
     count: filmsToFilterMap.watchlist(films),
   },
   alreadyWatched: {
-    href: '#history',
+    href: 'history',
     name:'History',
     count: filmsToFilterMap.history(films),
   },
   favourites: {
-    href: '#favourites',
+    href: 'favourites',
     name:'Favourites',
     count: filmsToFilterMap.favourites(films),
   },

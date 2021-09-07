@@ -1,10 +1,8 @@
 import dayjs from 'dayjs';
 
-import { getRandomInteger } from '../services/random-integer';
+import { getRandomInteger, generateId } from '../services/utils.js';
 
-import {emotions} from '../services/constants.js';
-
-import {generateId} from '../services/id-generation';
+import {emotions, COMMENT_COUNT} from '../services/constants.js';
 
 const generateEmotion = () => {
   const randomIndex = getRandomInteger(0, emotions.length - 1);
@@ -49,7 +47,7 @@ const generateCommentText = () => {
 };
 
 const createCommentData = () => ({
-  id: generateId(75),
+  id: generateId(COMMENT_COUNT),
   author: generateСommentator(),
   commentText: generateCommentText(),
   date: generateCommentedDate(),

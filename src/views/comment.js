@@ -2,12 +2,11 @@ import dayjs from 'dayjs';
 
 import {createCommentData} from '../mocks/comment-data-generation.js';
 
-const COMMENT_COUNT = 75;
-
+import {COMMENT_COUNT} from '../services/constants.js';
 
 const commentData = new Array(COMMENT_COUNT).fill().map(createCommentData);
 
-const findComments= (film) => {
+const findComments = (film) => {
   const neededComments = [];
   for (const commentId of film.comments) {
     for (let i = 0; i < commentData.length - 1; i++) {

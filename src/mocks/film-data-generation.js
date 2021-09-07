@@ -1,8 +1,6 @@
 import dayjs from 'dayjs';
 
-import { getRandomInteger } from '../services/random-integer.js';
-
-import {generateId} from '../services/id-generation';
+import { getRandomInteger, generateId } from '../services/utils.js';
 
 const generateArrayOfCommentsId = (from, to) => {
   const newArrayOfCommentsId = [];

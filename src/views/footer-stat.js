@@ -1,4 +1,4 @@
-import { getRandomInteger } from '../services/random-integer';
+import { getRandomInteger } from '../services/utils.js';
 
 export const createFooterStatTemplate = () => {
   const moviesInside = getRandomInteger(100,1000);
