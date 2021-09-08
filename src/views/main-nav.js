@@ -1,12 +1,11 @@
-export const createMainNavTemplate = () => (`
-  <nav class="main-navigation">
-    <div class="main-navigation__items">
-      <a href="#all" class="main-navigation__item main-navigation__item--active">All movies</a>
-      <a href="#watchlist" class="main-navigation__item">Watchlist <span class="main-navigation__item-count">13</span></a>
-      <a href="#history" class="main-navigation__item">History <span class="main-navigation__item-count">4</span></a>
-      <a href="#favorites" class="main-navigation__item">Favorites <span class="main-navigation__item-count">8</span></a>
+export const createMainNavTemplate = (filters) => (
+  `<nav class="main-navigation">
+    <div class="main-navigation__items">${
+  Object.values(filters).map((item) =>
+    `<a href="#${item.href}" class="main-navigation__item">${item.name}${item.count ? `<span class="main-navigation__item-count">${item.count}</span>` : ''}</a>`).join(' ')
+  }
     </div>
     <a href="#stats" class="main-navigation__additional">Stats</a>
-  </nav>
-`);
+  </nav>`
+);
 
