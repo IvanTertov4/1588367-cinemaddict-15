@@ -1,4 +1,6 @@
-export const createStatTextListTemplate = () => (`
+import { createElement } from '../services/utils';
+
+const createStatTextListTemplate = () => (`
   <ul class="statistic__text-list">
     <li class="statistic__text-item">
       <h4 class="statistic__item-title">You watched</h4>
@@ -14,3 +16,25 @@ export const createStatTextListTemplate = () => (`
     </li>
   </ul>
 `);
+
+export default class StatTextList {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createStatTextListTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
