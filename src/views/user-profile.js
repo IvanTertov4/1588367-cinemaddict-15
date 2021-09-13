@@ -26,7 +26,7 @@ export default class UserProfile {
 
   getTemplate() {
     if (this._filter === 0) {
-      return null;
+      return '<div class="visually-hidden"></div>';
     }
     return createUserProfileTemplate(this._ranks, this._filter);
   }

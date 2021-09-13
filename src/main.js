@@ -14,9 +14,8 @@ import UserProfileView from './views/user-profile.js';
 import FilmsShowMoreBtnView from './views/films-show-more-btn.js';
 import InfoPopupView from './views/info-popup.js';
 import CommentView from './views/comment.js';
-import NoFilmsView from './views/no-films.js';
 
-import {CARD_COUNT, CARD_TOP_COUNT, GENERATION_CARD_COUNT, userRanks, filmListStates} from './services/constants.js';
+import {CARD_COUNT, CARD_TOP_COUNT, GENERATION_CARD_COUNT, userRanks} from './services/constants.js';
 
 const bodyPlace = document.body;
 const headerPlace = bodyPlace.querySelector('.header');
@@ -34,9 +33,6 @@ render(footerStatisticsPlace, new FooterStatView().getElement());
 render(mainPlace, new SortingNavView().getElement());
 render(mainPlace, new FilmsSectionView().getElement());
 const filmSection = bodyPlace.querySelector('.films');
-if (filmCardData.length === 0) {
-  render(filmSection, new NoFilmsView(filmListStates.all).getElement());
-}
 render(filmSection, new FilmsListView().getElement());
 const filmList = filmSection.querySelector('.films-list');
 const filmContForCards = filmList.querySelector('.films-list__container');
