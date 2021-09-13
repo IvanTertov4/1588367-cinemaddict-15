@@ -15,7 +15,7 @@ import FilmsShowMoreBtnView from './views/films-show-more-btn.js';
 import InfoPopupView from './views/info-popup.js';
 import CommentView from './views/comment.js';
 
-import {CARD_COUNT, CARD_TOP_COUNT, GENERATION_CARD_COUNT} from './services/constants.js';
+import {CARD_COUNT, CARD_TOP_COUNT, GENERATION_CARD_COUNT, userRanks} from './services/constants.js';
 
 const bodyPlace = document.body;
 const headerPlace = bodyPlace.querySelector('.header');
@@ -27,7 +27,7 @@ const sortedRatedFilmCardData = Array.from(filmCardData).sort((prevent, next) =>
 const sortedСommentedFilmCardData = Array.from(filmCardData).sort((prevent, next) => next.comments.length - prevent.comments.length);
 const filters = createFilterData(filmCardData);
 
-render(headerPlace, new UserProfileView().getElement());
+render(headerPlace, new UserProfileView(userRanks, filters.alreadyWatched.count).getElement());
 render(mainPlace, new MainNavView(filters).getElement());
 render(footerStatisticsPlace, new FooterStatView().getElement());
 render(mainPlace, new SortingNavView().getElement());

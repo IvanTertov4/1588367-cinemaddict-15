@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 
 import { createElement } from '../services/utils';
+import { emotions } from '../services/constants.js';
 
 const createInfoPopupTemplate = (filmCard) => {
   const {filmInfo,comments} = filmCard;
@@ -85,7 +86,7 @@ const createInfoPopupTemplate = (filmCard) => {
         <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${commentsNumber}</span></h3>
 
         <ul class="film-details__comments-list">
-          
+
         </ul>
 
         <div class="film-details__new-comment">
@@ -96,25 +97,12 @@ const createInfoPopupTemplate = (filmCard) => {
           </label>
 
           <div class="film-details__emoji-list">
-            <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile">
-            <label class="film-details__emoji-label" for="emoji-smile">
-              <img src="./images/emoji/smile.png" width="30" height="30" alt="emoji">
-            </label>
-
-            <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-sleeping" value="sleeping">
-            <label class="film-details__emoji-label" for="emoji-sleeping">
-              <img src="./images/emoji/sleeping.png" width="30" height="30" alt="emoji">
-            </label>
-
-            <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="puke">
-            <label class="film-details__emoji-label" for="emoji-puke">
-              <img src="./images/emoji/puke.png" width="30" height="30" alt="emoji">
-            </label>
-
-            <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-angry" value="angry">
-            <label class="film-details__emoji-label" for="emoji-angry">
-              <img src="./images/emoji/angry.png" width="30" height="30" alt="emoji">
-            </label>
+            ${
+  emotions.map((item) => `<input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="${item}">
+  <label class="film-details__emoji-label" for="emoji-${item}">
+    <img src="./images/emoji/${item}.png" width="30" height="30" alt="emoji">
+  </label>`).join(' ')
+}
           </div>
         </div>
       </section>
