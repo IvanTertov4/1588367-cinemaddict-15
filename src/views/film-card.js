@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { createElement } from '../services/utils';
+import { createElement } from '../services/utils.js';
 
 const createFilmCardTemplate = (filmCard) => {
   const {filmInfo, comments} = filmCard;

@@ -1,21 +1,22 @@
 import { createElement } from '../services/utils';
+import {FAN_LIMIT, MOVIE_BUFF_LIMIT} from '../services/constants.js';
 
-const createUserProfileTemplate = (ranks, filter) => {
-  let definedRank = '';
-  if (filter >= 1) {
-    definedRank = ranks.novice;
+const defineRank = (ranks, filter) => {
+  if (filter >= MOVIE_BUFF_LIMIT) {
+    return ranks.movieBuff;
+  } else if (filter >= FAN_LIMIT) {
+    return ranks.fan;
+  } else {
+    return ranks.novice;
   }
-  if (filter >= 11) {
-    definedRank = ranks.fan;
-  }
-  if (filter >= 21) {
-    definedRank = ranks.movieBuff;
-  }
-  return `<section class="header__profile profile">
-     <p class="profile__rating">${definedRank}</p>
-     <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
-   </section>`;
 };
+
+const createUserProfileTemplate = (ranks, filter) => (
+  `<section class="header__profile profile">
+     <p class="profile__rating">${defineRank(ranks, filter)}</p>
+     <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
+   </section>`
+);
 
 export default class UserProfile {
   constructor(ranks, filter) {

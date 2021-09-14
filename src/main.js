@@ -36,11 +36,9 @@ const filmSection = bodyPlace.querySelector('.films');
 render(filmSection, new FilmsListView().getElement());
 const filmList = filmSection.querySelector('.films-list');
 const filmContForCards = filmList.querySelector('.films-list__container');
-
 const renderFilm = (container, film) => {
   const filmCard = new FilmCardView(film);
   const filmCardInfo = new InfoPopupView(film);
-
   const openFilmCardInfo = () => {
     bodyPlace.classList.add('hide-overflow');
     bodyPlace.appendChild(filmCardInfo.getElement());
@@ -49,75 +47,48 @@ const renderFilm = (container, film) => {
       render(commentsPlace, new CommentView(film, i).getElement());
     }
   };
-
   const closeFilmCardInfo = () => {
     bodyPlace.classList.remove('hide-overflow');
     bodyPlace.removeChild(filmCardInfo.getElement());
   };
-
-  const onEscKeyDown = (evt) => {
-    if (evt.key === 'Escape' || evt.key === 'Esc') {
-      evt.preventDefault();
-      closeFilmCardInfo();
-      document.removeEventListener('keydown', onEscKeyDown);
-    }
-  };
-
   filmCard.getElement().querySelector('.film-card__poster').addEventListener('click', () => {
     openFilmCardInfo();
-    document.addEventListener('keydown', onEscKeyDown);
   });
-
   filmCard.getElement().querySelector('.film-card__title').addEventListener('click', () => {
     openFilmCardInfo();
-    document.addEventListener('keydown', onEscKeyDown);
   });
-
   filmCard.getElement().querySelector('.film-card__comments').addEventListener('click', () => {
     openFilmCardInfo();
-    document.addEventListener('keydown', onEscKeyDown);
   });
-
   filmCardInfo.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
     closeFilmCardInfo();
-    document.removeEventListener('keydown', onEscKeyDown);
   });
-
   render(container, filmCard.getElement());
 };
-
 for (let i = 0; i < CARD_COUNT; i++) {
   renderFilm(filmContForCards, filmCardData[i]);
 }
-
 if (filmCardData.length > CARD_COUNT) {
   let renderedCardCount = CARD_COUNT;
-
   render(filmList, new FilmsShowMoreBtnView().getElement());
-
   const filmsShowMoreBtn = filmList.querySelector('.films-list__show-more');
-
   filmsShowMoreBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
     filmCardData.slice(renderedCardCount, renderedCardCount + CARD_COUNT).forEach((film) => renderFilm(filmContForCards, film));
     renderedCardCount += CARD_COUNT;
-
     if (renderedCardCount >= filmCardData.length) {
       filmsShowMoreBtn.remove();
     }
   });
 }
-
 render(filmSection, new FilmListRatedView().getElement());
 const filmListRated = filmSection.querySelector('.films-list__container--rated');
-
 for (let i = 0; i < CARD_TOP_COUNT; i++) {
   renderFilm(filmListRated, sortedRatedFilmCardData[i]);
 }
-
 render(filmSection, new FilmListСommentedView().getElement());
 const filmListСommented = filmSection.querySelector('.films-list__container--commented');
-
 for (let i = 0; i < CARD_TOP_COUNT; i++) {
   renderFilm(filmListСommented, sortedСommentedFilmCardData[i]);
 }
+
