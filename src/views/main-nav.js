@@ -1,4 +1,6 @@
-export const createMainNavTemplate = (filters) => (
+import { createElement } from '../services/utils';
+
+const createMainNavTemplate = (filters) => (
   `<nav class="main-navigation">
     <div class="main-navigation__items">${
   Object.values(filters).map((item) =>
@@ -9,3 +11,25 @@ export const createMainNavTemplate = (filters) => (
   </nav>`
 );
 
+export default class MainNav {
+  constructor(filters) {
+    this._filters = filters;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createMainNavTemplate(this._filters);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

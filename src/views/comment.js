@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 
+import { createElement } from '../services/utils';
+
 import {createCommentData} from '../mocks/comment-data-generation.js';
 
 import {COMMENT_COUNT} from '../services/constants.js';
@@ -18,7 +20,7 @@ const findComments = (film) => {
   return neededComments;
 };
 
-export const createCommentTemplate = (film, number) => {
+const createCommentTemplate = (film, number) => {
   const neededComments = findComments(film);
   const {author, commentText, date, emotion} = neededComments[number];
   return `<li class="film-details__comment">
@@ -36,3 +38,27 @@ export const createCommentTemplate = (film, number) => {
   </li>`;
 
 };
+
+export default class Comment {
+  constructor(film, number) {
+    this._number = number;
+    this._film = film;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createCommentTemplate(this._film, this._number);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
