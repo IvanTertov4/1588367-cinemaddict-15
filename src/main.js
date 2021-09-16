@@ -16,7 +16,7 @@ import InfoPopupView from './views/info-popup.js';
 import CommentView from './views/comment.js';
 import NoFilmsView from './views/no-films.js';
 
-import {CARD_COUNT, CARD_TOP_COUNT, GENERATION_CARD_COUNT, userRanks, ESC_CODE} from './services/constants.js';
+import {CARD_COUNT, CARD_TOP_COUNT, GENERATION_CARD_COUNT, ESC_CODE} from './services/constants.js';
 
 const bodyPlace = document.body;
 const headerPlace = bodyPlace.querySelector('.header');
@@ -28,7 +28,7 @@ const sortedRatedFilmCardData = Array.from(filmCardData).sort((prevent, next) =>
 const sortedСommentedFilmCardData = Array.from(filmCardData).sort((prevent, next) => next.comments.length - prevent.comments.length);
 const filters = createFilterData(filmCardData);
 
-render(headerPlace, new UserProfileView(userRanks, filters.alreadyWatched.count).getElement());
+render(headerPlace, new UserProfileView(filters.alreadyWatched.count).getElement());
 render(mainPlace, new MainNavView(filters).getElement());
 render(footerStatisticsPlace, new FooterStatView().getElement());
 if (filmCardData.length === 0) {
