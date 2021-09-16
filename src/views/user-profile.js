@@ -1,22 +1,21 @@
-import { createElement } from '../services/utils.js';
-import {FAN_LIMIT, MOVIE_BUFF_LIMIT, userRanks} from '../services/constants.js';
+import { createElement } from '../services/utils';
+import {FAN_LIMIT, MOVIE_BUFF_LIMIT} from '../services/constants.js';
 
-const defineRank = (filter) => {
-  if (filter > MOVIE_BUFF_LIMIT) {
-    return userRanks.movieBuff;
-  }
-  if (filter > FAN_LIMIT) {
-    return userRanks.fan;
+const defineRank = (ranks, filter) => {
+  if (filter >= MOVIE_BUFF_LIMIT) {
+    return ranks.movieBuff;
+  } else if (filter >= FAN_LIMIT) {
+    return ranks.fan;
   } else {
-    return userRanks.novice;
+    return ranks.novice;
   }
 };
 
-const createUserProfileTemplate = (filter) => (
+const createUserProfileTemplate = (ranks, filter) => (
   `<section class="header__profile profile">
-   <p class="profile__rating">${defineRank(filter)}</p>
-   <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
-  </section>`
+     <p class="profile__rating">${defineRank(ranks, filter)}</p>
+     <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
+   </section>`
 );
 
 export default class UserProfile {
