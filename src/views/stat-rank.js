@@ -1,4 +1,4 @@
-import { createElement } from '../services/utils';
+import AbstractView from './abstract.js';
 
 const createStatRankTemplate = () => (`
   <p class="statistic__rank">
@@ -9,24 +9,8 @@ const createStatRankTemplate = () => (`
 `);
 
 
-export default class StatRank {
-  constructor() {
-    this._element = null;
-  }
-
+export default class StatRank extends AbstractView {
   getTemplate() {
     return createStatRankTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

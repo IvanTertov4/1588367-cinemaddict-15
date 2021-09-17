@@ -1,4 +1,4 @@
-import { createElement } from '../services/utils.js';
+import AbstractView from './abstract.js';
 import {FAN_LIMIT, MOVIE_BUFF_LIMIT, userRanks} from '../services/constants.js';
 
 const defineRank = (filter) => {
@@ -18,9 +18,9 @@ const createUserProfileTemplate = (filter) => (
    </section>`
 );
 
-export default class UserProfile {
+export default class UserProfile extends AbstractView {
   constructor(filter) {
-    this._element = null;
+    super();
     this._filter = filter;
   }
 
@@ -29,17 +29,5 @@ export default class UserProfile {
       return '<div class="visually-hidden"></div>';
     }
     return createUserProfileTemplate(this._filter);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

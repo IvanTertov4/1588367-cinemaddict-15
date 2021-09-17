@@ -1,4 +1,4 @@
-import { createElement } from '../services/utils';
+import AbstractView from './abstract.js';
 
 const createStatChartWrapTemplate = () => (`
   <div class="statistic__chart-wrap">
@@ -6,24 +6,8 @@ const createStatChartWrapTemplate = () => (`
   </div>
 `);
 
-export default class StatFilter {
-  constructor() {
-    this._element = null;
-  }
-
+export default class StatFilter extends AbstractView {
   getTemplate() {
     return createStatChartWrapTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

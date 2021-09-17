@@ -11,15 +11,4 @@ const getRandomInteger = (min, max) => {
   return Math.round(randomInteger);
 };
 
-const render = (container, element) => {
-  container.append(element);
-};
-
-const createElement = (template) => {
-  const newElement = document.createElement('div');
-  newElement.innerHTML = template;
-
-  return newElement.firstChild;
-};
-
-export {getRandomInteger, generateId, createElement, render};
+export {getRandomInteger, generateId};

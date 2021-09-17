@@ -1,4 +1,4 @@
-import { createElement } from '../services/utils';
+import AbstractView from './abstract.js';
 
 const createSortingNavTemplate = () => (
   `<ul class="sort">
@@ -8,24 +8,8 @@ const createSortingNavTemplate = () => (
   </ul>`
 );
 
-export default class SortingNav {
-  constructor() {
-    this._element = null;
-  }
-
+export default class SortingNav extends AbstractView{
   getTemplate() {
     return createSortingNavTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

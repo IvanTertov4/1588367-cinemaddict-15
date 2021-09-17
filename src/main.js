@@ -1,6 +1,6 @@
 import {createFilmData} from './mocks/film-data-generation.js';
 import {createFilterData} from './mocks/filters-generation.js';
-import {render} from './services/utils.js';
+import {render} from './services/render.js';
 
 import FilmCardView from './views/film-card.js';
 import FilmsListView from './views/films-list.js';
@@ -47,8 +47,10 @@ if (filmCardData.length === 0) {
       bodyPlace.classList.add('hide-overflow');
       bodyPlace.appendChild(filmCardInfo.getElement());
       const commentsPlace = filmCardInfo.getElement().querySelector('.film-details__comments-list');
-      for (let i = 0; i < film.comments.length; i++) {
-        render(commentsPlace, new CommentView(film, i).getElement());
+      if (commentsPlace.children.length === 0) {
+        for (let i = 0; i < film.comments.length; i++) {
+          render(commentsPlace, new CommentView(film, i).getElement());
+        }
       }
     };
     const closeFilmCardInfo = () => {
@@ -70,11 +72,11 @@ if (filmCardData.length === 0) {
       openFilmCardInfo();
       document.addEventListener('keydown', onEscKeyDown);
     });
-    filmCard.getElement().querySelector('.film-card__comments').addEventListener('click', () => {
+    filmCard.setCommentsClickHandler(() => {
       openFilmCardInfo();
       document.addEventListener('keydown', onEscKeyDown);
     });
-    filmCardInfo.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
+    filmCardInfo.setClickHandler(() => {
       closeFilmCardInfo();
       document.addEventListener('keydown', onEscKeyDown);
     });
@@ -85,10 +87,9 @@ if (filmCardData.length === 0) {
   }
   if (filmCardData.length > CARD_COUNT) {
     let renderedCardCount = CARD_COUNT;
-    render(filmList, new FilmsShowMoreBtnView().getElement());
-    const filmsShowMoreBtn = filmList.querySelector('.films-list__show-more');
-    filmsShowMoreBtn.addEventListener('click', (evt) => {
-      evt.preventDefault();
+    const filmsShowMoreBtn = new FilmsShowMoreBtnView();
+    render(filmList, filmsShowMoreBtn.getElement());
+    filmsShowMoreBtn.setClickHandler(() => {
       filmCardData.slice(renderedCardCount, renderedCardCount + CARD_COUNT).forEach((film) => renderFilm(filmContForCards, film));
       renderedCardCount += CARD_COUNT;
       if (renderedCardCount >= filmCardData.length) {
