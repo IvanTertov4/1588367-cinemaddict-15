@@ -17,7 +17,6 @@ import CommentView from './views/comment.js';
 import NoFilmsView from './views/no-films.js';
 
 import {CARD_COUNT, CARD_TOP_COUNT, GENERATION_CARD_COUNT, ESC_CODE} from './services/constants.js';
-
 const bodyPlace = document.body;
 const headerPlace = bodyPlace.querySelector('.header');
 const mainPlace = bodyPlace.querySelector('.main');
