@@ -21,6 +21,7 @@ const createUserProfileTemplate = (filter) => (
 export default class UserProfile extends AbstractView {
   constructor(filter) {
     super();
+
     this._filter = filter;
   }
 

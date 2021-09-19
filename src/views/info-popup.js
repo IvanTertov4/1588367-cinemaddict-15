@@ -3,6 +3,11 @@ import dayjs from 'dayjs';
 import AbstractView from './abstract.js';
 import { emotions } from '../services/constants.js';
 
+const createEmojiList = () =>   emotions.map((item) => `<input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-${item}" value="${item}">
+<label class="film-details__emoji-label" for="emoji-${item}">
+  <img src="./images/emoji/${item}.png" width="30" height="30" alt="emoji">
+</label>`).join(' ');
+
 const createInfoPopupTemplate = (filmCard) => {
   const {filmInfo,comments} = filmCard;
   const {title, poster, totalRating, alternativeTitle, release, genre, runtime, description, ageRating, director, writers, actors} = filmInfo;
@@ -97,12 +102,7 @@ const createInfoPopupTemplate = (filmCard) => {
           </label>
 
           <div class="film-details__emoji-list">
-            ${
-  emotions.map((item) => `<input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="${item}">
-  <label class="film-details__emoji-label" for="emoji-${item}">
-    <img src="./images/emoji/${item}.png" width="30" height="30" alt="emoji">
-  </label>`).join(' ')
-}
+            ${createEmojiList()}
           </div>
         </div>
       </section>
