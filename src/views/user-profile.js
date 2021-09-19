@@ -1,27 +1,25 @@
-import { createElement } from '../services/utils';
-import {FAN_LIMIT, MOVIE_BUFF_LIMIT} from '../services/constants.js';
-
-const defineRank = (ranks, filter) => {
+import { createElement } from '../services/utils.js';
+import {FAN_LIMIT, MOVIE_BUFF_LIMIT, userRanks} from '../services/constants.js';
+const defineRank = (filter) => {
   if (filter >= MOVIE_BUFF_LIMIT) {
-    return ranks.movieBuff;
+    return userRanks.movieBuff;
   } else if (filter >= FAN_LIMIT) {
-    return ranks.fan;
+    return userRanks.fan;
   } else {
-    return ranks.novice;
+    return userRanks.novice;
   }
 };
 
-const createUserProfileTemplate = (ranks, filter) => (
+const createUserProfileTemplate = (filter) => (
   `<section class="header__profile profile">
-     <p class="profile__rating">${defineRank(ranks, filter)}</p>
+     <p class="profile__rating">${defineRank(filter)}</p>
      <img class="profile__avatar" src="images/bitmap@2x.png" alt="Avatar" width="35" height="35">
    </section>`
 );
 
 export default class UserProfile {
-  constructor(ranks, filter) {
+  constructor(filter) {
     this._element = null;
-    this._ranks = ranks;
     this._filter = filter;
   }
 
@@ -29,7 +27,7 @@ export default class UserProfile {
     if (this._filter === 0) {
       return '<div class="visually-hidden"></div>';
     }
-    return createUserProfileTemplate(this._ranks, this._filter);
+    return createUserProfileTemplate(this._filter);
   }
 
   getElement() {
