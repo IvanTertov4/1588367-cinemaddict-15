@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 
 import AbstractView from './abstract.js';
 
-
 const createFilmCardTemplate = (filmCard) => {
   const {filmInfo, comments} = filmCard;
   const {title, poster, totalRating, release, genre, runtime, description} = filmInfo;
