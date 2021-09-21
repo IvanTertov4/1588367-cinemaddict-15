@@ -1,6 +1,5 @@
 import AbstractView from './abstract.js';
 import {FAN_LIMIT, MOVIE_BUFF_LIMIT, userRanks} from '../services/constants.js';
-
 const defineRank = (filter) => {
   if (filter >= MOVIE_BUFF_LIMIT) {
     return userRanks.movieBuff;
@@ -21,6 +20,7 @@ const createUserProfileTemplate = (filter) => (
 export default class UserProfile extends AbstractView {
   constructor(filter) {
     super();
+
     this._filter = filter;
   }
 

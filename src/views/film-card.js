@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+
 import AbstractView from './abstract.js';
 
 const createFilmCardTemplate = (filmCard) => {
