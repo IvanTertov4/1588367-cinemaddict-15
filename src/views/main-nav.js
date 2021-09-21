@@ -1,4 +1,4 @@
-import { createElement } from '../services/utils';
+import AbstractView from './abstract.js';
 
 const createMainNavTemplate = (filters) => (
   `<nav class="main-navigation">
@@ -11,25 +11,13 @@ const createMainNavTemplate = (filters) => (
   </nav>`
 );
 
-export default class MainNav {
+export default class MainNav extends AbstractView {
   constructor(filters) {
+    super();
     this._filters = filters;
-    this._element = null;
   }
 
   getTemplate() {
     return createMainNavTemplate(this._filters);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

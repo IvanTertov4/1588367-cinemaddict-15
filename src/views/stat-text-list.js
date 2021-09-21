@@ -1,4 +1,4 @@
-import { createElement } from '../services/utils';
+import AbstractView from './abstract.js';
 
 const createStatTextListTemplate = () => (`
   <ul class="statistic__text-list">
@@ -17,24 +17,8 @@ const createStatTextListTemplate = () => (`
   </ul>
 `);
 
-export default class StatTextList {
-  constructor() {
-    this._element = null;
-  }
-
+export default class StatTextList extends AbstractView {
   getTemplate() {
     return createStatTextListTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

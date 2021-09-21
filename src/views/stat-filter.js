@@ -1,4 +1,4 @@
-import { createElement } from '../services/utils';
+import AbstractView from './abstract.js';
 
 const createStatFilterTemplate = () => (`
   <form action="https://echo.htmlacademy.ru/" method="get" class="statistic__filters">
@@ -21,24 +21,8 @@ const createStatFilterTemplate = () => (`
   </form>
 `);
 
-export default class StatFilter {
-  constructor() {
-    this._element = null;
-  }
-
+export default class StatFilter extends AbstractView {
   getTemplate() {
     return createStatFilterTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
