@@ -4,13 +4,27 @@ import AbstractView from './abstract.js';
 import { emotions } from '../services/constants.js';
 
 const createInfoPopupTemplate = (filmCard) => {
-  const {filmInfo,comments} = filmCard;
+  const {filmInfo, userDetails, comments} = filmCard;
   const {title, poster, totalRating, alternativeTitle, release, genre, runtime, description, ageRating, director, writers, actors} = filmInfo;
   const {date, releaseCountry} = release;
+  const {watchlist, alreadyWatched, favorite} = userDetails;
   const directorsCollection = director.join(', ');
   const writersCollection = writers.join(', ');
   const actorsCollection = actors.join(', ');
   const commentsNumber = comments.length;
+
+  const watchlistClass = watchlist
+    ? 'film-details__control-button film-details__control-button--watchlist film-details__control-button--active'
+    : 'film-details__control-button film-details__control-button--watchlist';
+
+  const alreadyWatchedClass = alreadyWatched
+    ? 'film-details__control-button film-details__control-button--watched film-details__control-button--active'
+    : 'film-details__control-button film-details__control-button--watched';
+
+  const favoriteClass = favorite
+    ? 'film-details__control-button film-details__control-button--favorite film-details__control-button--active'
+    : 'film-details__control-button film-details__control-button--favorite';
+
   return `<section class="film-details">
   <form class="film-details__inner" action="" method="get">
     <div class="film-details__top-container">
@@ -75,9 +89,9 @@ const createInfoPopupTemplate = (filmCard) => {
       </div>
 
       <section class="film-details__controls">
-        <button type="button" class="film-details__control-button film-details__control-button--watchlist" id="watchlist" name="watchlist">Add to watchlist</button>
-        <button type="button" class="film-details__control-button film-details__control-button--active film-details__control-button--watched" id="watched" name="watched">Already watched</button>
-        <button type="button" class="film-details__control-button film-details__control-button--favorite" id="favorite" name="favorite">Add to favorites</button>
+        <button type="button" class="${watchlistClass}" id="watchlist" name="watchlist">Add to watchlist</button>
+        <button type="button" class="${alreadyWatchedClass}" id="watched" name="watched">Already watched</button>
+        <button type="button" class="${favoriteClass}" id="favorite" name="favorite">Add to favorites</button>
       </section>
     </div>
 
@@ -130,5 +144,20 @@ export default class InfoPopup extends AbstractView {
   setClickHandler(callback) {
     this._callback.closeClick = callback;
     this.getElement().querySelector('.film-details__close-btn').addEventListener('click', this._closeClickHandler);
+  }
+
+  setWatchlistClickHandler(callback) {
+    this._callback.watchlistClick = callback;
+    this.getElement().querySelector('.film-details__control-button--watchlist').addEventListener('click', this._watchlistClickHandler);
+  }
+
+  setWatchedClickHandler(callback) {
+    this._callback.watchedClick = callback;
+    this.getElement().querySelector('.film-details__control-button--watched').addEventListener('click', this._watchedClickHandler);
+  }
+
+  setFavoriteClickHandler(callback) {
+    this._callback.favoriteClick = callback;
+    this.getElement().querySelector('.film-details__control-button--favorite').addEventListener('click', this._favoriteClickHandler);
   }
 }

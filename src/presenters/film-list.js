@@ -5,20 +5,26 @@ import FilmsSectionView from '../views/films-section.js';
 import FilmListСommentedView from '../views/films-list-commented.js';
 import FilmListRatedView from '../views/films-list-rated.js';
 import FilmsShowMoreBtnView from '../views/films-show-more-btn.js';
-//import FooterStatView from '../views/footer-stat.js';
-//import MainNavView from '../views/main-nav.js';
-//import UserProfileView from '../views/user-profile.js';
-//import InfoPopupView from '../views/info-popup.js';
+import FooterStatView from '../views/footer-stat.js';
+import MainNavView from '../views/main-nav.js';
+import UserProfileView from '../views/user-profile.js';
 import {render, remove} from '../services/render.js';
-import {CARD_COUNT, CARD_TOP_COUNT} from '../services/constants.js';
+import {CARD_COUNT, CARD_TOP_COUNT, mainPlace, headerPlace, footerStatisticsPlace} from '../services/constants.js';
 import { updateItem } from '../services/utils.js';
 import FilmCardPresenter from './film-card.js';
 
+//исправить датабинглинг
+//исправить возможность показа только одного попапа
+
 export default class FilmsList {
-  constructor (place) {
-    this._place = place;
+  constructor (filters) {
+    this._place = mainPlace;
     this._renderedCardCount = CARD_COUNT;
     this._filmPresenter = new Map();
+
+    this._userProfileComponent = new UserProfileView(filters.alreadyWatched.count);
+    this._mainNavComponent = new MainNavView(filters);
+    this._footerStatComponent = new FooterStatView();
     this._filmsSectionComponent = new FilmsSectionView();
     this._listDefaultComponent = new FilmsListView();
     this._listRatedComponent = new FilmListRatedView();
@@ -33,7 +39,23 @@ export default class FilmsList {
 
   init(films) {
     this._films = films.slice();
+    render(headerPlace, this._userProfileComponent.getElement());
+    render(this._place, this._mainNavComponent.getElement());
     this._renderList();
+    render(footerStatisticsPlace, this._footerStatComponent);
+  }
+
+  _renderList() {
+    if (this._films.length === 0) {
+      this._renderNoFilms();
+    } else {
+      this._renderSort();
+      this._renderFilmSection();
+    }
+  }
+
+  _renderNoFilms() {
+    render(this._place, this._noFilmComponent.getElement());
   }
 
   _renderSort() {
@@ -70,24 +92,23 @@ export default class FilmsList {
     this._renderFilms(0, CARD_TOP_COUNT, filmListСommented, sortedСommentedFilmCardData);
   }
 
-  _renderFilm(container, film) {
-    const filmCardPresenter = new FilmCardPresenter(container, this._handleFilmChange);
-    filmCardPresenter.init(film);
-    this._filmPresenter.set(film.id, filmCardPresenter);
-  }
-
   _renderFilms(from, to, container, array) {
     array.slice(from, to).forEach((film) => this._renderFilm(container, film));
   }
 
-  _renderNoFilms() {
-    // Метод для рендеринга заглушки
-    render(this._place, this._noFilmComponent.getElement());
+  _renderFilm(container, film) {
+    const filmCardPresenter = new FilmCardPresenter(container, this._handleFilmChange, this._handleModeChange);
+    filmCardPresenter.init(film);
+    this._filmPresenter.set(film.id, filmCardPresenter);
   }
 
   _handleFilmChange(updatedFilm) {
     this._films = updateItem(this._films, updatedFilm);
     this._filmPresenter.get(updatedFilm.id).init(updatedFilm);
+  }
+
+  _handleModeChange() {
+    this._filmPresenter.forEach((presenter) => presenter.resetView());
   }
 
   _clearFilmsList() {
@@ -109,14 +130,5 @@ export default class FilmsList {
   _renderFilmsShowMoreBtn() {
     render(this._listDefaultComponent.getElement(), this._showMoreButton.getElement());
     this._showMoreButton.setClickHandler(this._handleShowMoreButtonClick);
-  }
-
-  _renderList() {
-    if (this._films.length === 0) {
-      this._renderNoFilms();
-    } else {
-      this._renderSort();
-      this._renderFilmSection();
-    }
   }
 }
